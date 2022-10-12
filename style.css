@@ -43,10 +43,12 @@ form{display: flex;justify-content: center;margin-top: 3em;margin-bottom: 3em;}
 
 input::placeholder{font-size: 0.8em!important;font-weight: 200;color: grey;padding-left: 10px}
 
-.items:hover{margin-top: 5px;margin-bottom: 20px;transition-duration: 0.5s;}
+.imgbdd{width: 30px;}
+
+.items:hover{box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.10);transition-duration: 0.5s;}
 
 .items{
-
+  
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.05);
   border-radius: 10px!important;
   flex:25%;
@@ -64,8 +66,13 @@ main {
   margin: 0 auto;
 }
 
+.wild{margin-right: 20px}
+
+
+h1{color: white;font-family: 'Poppins',sans-serif;}
+
 header {
-  background-color: #f4f4f4;
+  background-color: #e0c7aa;
   text-align: center;
   padding: 2em;
 }
