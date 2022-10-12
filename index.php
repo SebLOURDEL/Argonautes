@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Employés</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:weight@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <!-- Header section -->
 <header>
@@ -18,8 +20,7 @@
   
   <!-- Main section -->
   <main>
-     <div>
-        <a href="ajouter.php" class="Btn_add"> <img src="images/plus.png"> Ajouter</a>
+     
     <!-- New member form --><div>
     <?php
        //vérifier que le bouton ajouter a bien été cliqué
@@ -27,11 +28,11 @@
            //extraction des informations envoyé dans des variables par la methode POST
            extract($_POST);
            //verifier que tous les champs ont été remplis
-           if(isset($nom) && isset($prenom) && $age){
+           if(isset($nom) && isset($prenom) && $age && isset($descriptif)){
                 //connexion à la base de donnée
                 include_once "connexion.php";
                 //requête d'ajout
-                $requete = mysqli_query($con , "INSERT INTO Argonaute VALUES(NULL, '$nom', '$prenom','$age')");
+                $requete = mysqli_query($con , "INSERT INTO Argonaute VALUES(NULL, '$nom', '$prenom', '$age', '$descriptif')");
                 if($requete){//si la requête a été effectuée avec succès , on fait une redirection
                     header("location: index.php");
                 }else {//si non
@@ -46,18 +47,33 @@
     
     ?>
     </div>
-    <h2>Ajouter un(e) Argonaute</h2>
+    
+<?php
+   if (isset($_POST['submit']))
+   {
+       #TRAITEMENT DE TON FORMULAIRE VALIDE
+      $alerte = "Votre message a bien été envoyé";
+
+      #TRAITEMENT DE TON FORMULAIRE NON VALIDE
+      $alerte = "Echec de l'envoi";
+   }
+?>
+
     <form action="" method="POST">
-      <label>Nom</label>
-      <input type="text" name="nom">
-      <label>Prénom</label>
-      <input type="text" name="prenom">
-      <label>Age</label>
-      <input type="number" name="age">
-      <input type="submit" value="Ajouter" name="button">
+      <label class ="form-css">Nom</label>
+      <input class ="form-css" placeholder="Exodale" type="text" name="nom">
+      <label class ="form-css">Prénom</label>
+      <input class ="form-css" placeholder="Romwdolane" type="text" name="prenom">
+      <label class ="form-css">Age</label>
+      <input class ="form-css" placeholder="22" type="number" name="age">
+      <label class ="form-css">Descriptif</label>
+      <input class ="form-css" placeholder="Calme.." type="text" name="descriptif">
+      <input class ="form-css" type="submit" value="Ajouter" name="button">
     </form>
 
-    <h2>Membres de l'équipage</h2>
+        <div class="mmb"><img class="img-mmb" src="nv.png"><h2 class="hdo">Membres de l'équipage</h2>
+        </div>
+
 <div class="container">
     <?php 
     //inclure la page de connexion
@@ -70,12 +86,17 @@
     while($row=mysqli_fetch_assoc($requete)){
       ?>
 
-      <div class="items">
+    
+
+          <div class="items">
         <div class="element"><?=$row['nom']?></div>
-        <div class="element"><?=$row['prenom']?></div>
-        <div class="element"><?=$row['age']?></div>
+        <div class="prename"><?=$row['prenom']?></div>
+        <div class="age"><?=$row['age']?>&nbsp;ans</div>
+        <p class="desp"><?=$row['descriptif']?></p>
+        <a href="supprimer.php?id=<?=$row['id']?>"><img src="rejected.png" class="rejec"></a>
           </div>
         
+
       
     
       <?php
@@ -86,11 +107,16 @@
 <?php 
 
 ?>
+
+
+
+    
     <!-- Member list -->
     
   </main>
   
   <footer>
+    
     <p>Réalisé par Jason en Anthestérion de l'an 515 avant JC</p>
   </footer>
 </html>
